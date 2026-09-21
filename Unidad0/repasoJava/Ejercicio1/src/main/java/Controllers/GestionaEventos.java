@@ -41,7 +41,9 @@ public class GestionaEventos {
 		else {
 			throw new CrafterException("No es posible pasar al estado: " +nuevoEstado);
 		}
-		
+	}
+	
+	public void getPorcentajeOcupacion(Evento evento) {
 		
 	}
 	

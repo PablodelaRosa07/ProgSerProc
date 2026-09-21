@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import Exceptions.CrafterException;
 
-public class Evento {
+public abstract class Evento {
 	
 	private int id;
 	private String nombre;
@@ -32,7 +32,19 @@ public class Evento {
 	
 	
 	
-	
+	public double getPorcentajeOcupacion() {
+	    return (this.numEntradasVendidas * 100.0) / this.capacidadMaxAsistentes;
+	}
+
+	public double getPorcentajeOcupacion(int numeroEntradas) throws CrafterException {
+	    int totalEntradas = this.numEntradasVendidas + numeroEntradas;
+
+	    if (totalEntradas > this.capacidadMaxAsistentes || numeroEntradas < 0) {
+	        throw new CrafterException("El número de entradas supera la capacidad máxima del evento.");
+	    }
+
+	    return (totalEntradas * 100.0) / this.capacidadMaxAsistentes;
+	}
 	
 	
 
@@ -83,6 +95,9 @@ public class Evento {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+	
+	
+	public abstract double calcularCosteBase();
 
 	@Override
 	public int hashCode() {

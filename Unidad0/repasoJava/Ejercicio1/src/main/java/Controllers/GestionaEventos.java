@@ -39,7 +39,7 @@ public class GestionaEventos {
 
         // 1
         try {
-            Deportivo depInvalido = new Deportivo("Partido invalido", LocalDate.now(), 600, 500, Estado.PENDIENTE, true);
+            Deportivo deportivoInvalido = new Deportivo("Partido invalido", LocalDate.now(), 600, 500, Estado.PENDIENTE, true);
         } 
         catch (CrafterException e) {
             System.out.println("Excepción capturada correctamente: " + e.getMessage());
@@ -59,12 +59,13 @@ public class GestionaEventos {
 
         // 3
         try {
-            Concierto conciertoAgotado = new Concierto("Pop Night", LocalDate.of(2026, 11, 20), 500, 500, Estado.PENDIENTE, "Singer B");
+            Concierto conciertoAgotado = new Concierto("Pop Night", LocalDate.now(), 500, 500, Estado.PENDIENTE, "Cantante B");
             conciertoAgotado.addArtistaInvitado("Invitado 1");
 
             try {
                 conciertoAgotado.getPorcentajeOcupacion(20);
-            } catch (CrafterException e) {
+            } 
+            catch (CrafterException e) {
                 System.out.println("Excepción capturada al exceder aforo: " + e.getMessage());
             }
 
@@ -77,23 +78,23 @@ public class GestionaEventos {
 
         // 4
         try {
-            Deportivo depGrande = new Deportivo("Gran Clásico", LocalDate.of(2026, 12, 5), 1000, 5000, Estado.CANCELADO, true);
-            System.out.println("Coste Base: " + depGrande.calcularCosteBase() + " €");
-            System.out.println("Información del evento: " + depGrande);
+            Deportivo deportivoGrande = new Deportivo("Gran Clásico", LocalDate.now(), 1000, 5000, Estado.CANCELADO, true);
+            System.out.println("Coste Base: " + deportivoGrande.calcularCosteBase() + " €");
+            System.out.println("Información del evento: " + deportivoGrande);
         } catch (CrafterException e) {
             System.out.println("Error no esperado: " + e.getMessage());
         }
 
         // 5
 
-        Deportivo depPequeno = new Deportivo("Torneo Local", LocalDate.of(2026, 8, 10), 100, 500, Estado.PROGRAMADO, false);
-        System.out.println("Coste Base: " + depPequeno.calcularCosteBase() + " €");
-        System.out.println("Información del evento: " + depPequeno);
+        Deportivo deportivoPequeno = new Deportivo("Torneo Local", LocalDate.of(2026, 8, 10), 100, 500, Estado.PROGRAMADO, false);
+        System.out.println("Coste Base: " + deportivoPequeno.calcularCosteBase() + " €");
+        System.out.println("Información del evento: " + deportivoPequeno);
 
         System.out.println("Listado final del repositorio:");
         System.out.println(repo.getListaEventos());
 
-        gestionaEventos.modificaEstado(depPequeno, Estado.PENDIENTE);
+        gestionaEventos.modificaEstado(deportivoPequeno, Estado.PENDIENTE);
     }
     
     public void modificaEstado(Evento evento, Estado nuevoEstado) throws CrafterException {

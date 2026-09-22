@@ -14,21 +14,29 @@ public abstract class Evento {
 	private int capacidadMaxAsistentes;
 	private Estado estado;
 	
-	public Evento(int id, String nombre, LocalDate fechaEvento, int numEntradasVendidas, int capacidadMaxAsistentes, Estado estado) throws CrafterException {super();
+	public Evento(int id, String nombre, LocalDate fechaEvento, int numEntradasVendidas, int capacidadMaxAsistentes, Estado estado) throws CrafterException  {super();
+	if (verificaDatos(numEntradasVendidas, capacidadMaxAsistentes)) {
 		this.id = id;
-		if (numEntradasVendidas <= capacidadMaxAsistentes && capacidadMaxAsistentes > 0) {
-			this.nombre = nombre;
-			this.fechaEvento = fechaEvento;
-			this.numEntradasVendidas = numEntradasVendidas;
-			this.capacidadMaxAsistentes = capacidadMaxAsistentes;
-			this.estado = estado;
-		}
-		
-		else {
-			throw new CrafterException("No es posible construir un evento con esos datos");
-		}	
+		this.nombre = nombre;
+		this.fechaEvento = fechaEvento;
+		this.numEntradasVendidas = numEntradasVendidas;
+		this.capacidadMaxAsistentes = capacidadMaxAsistentes;
+		this.estado = estado;
+	}
 		
 	}
+	
+	
+	public boolean verificaDatos(int numEntradasVendidas, int capacidadMaxAsistentes)throws CrafterException {
+		boolean devuelve = true;
+		if (!(numEntradasVendidas <= capacidadMaxAsistentes && capacidadMaxAsistentes > 0)) {
+			devuelve = false;
+			throw new CrafterException("No es posible construir un evento con esos datos");
+		}
+
+		return devuelve;
+	}
+	
 	
 	
 	
@@ -76,16 +84,21 @@ public abstract class Evento {
 		return numEntradasVendidas;
 	}
 
-	public void setNumEntradasVendidas(int numEntradasVendidas) {
-		this.numEntradasVendidas = numEntradasVendidas;
+	public void setNumEntradasVendidas(int numEntradasVendidas) throws CrafterException {
+		if (verificaDatos(numEntradasVendidas, numEntradasVendidas)) {
+			this.numEntradasVendidas = numEntradasVendidas;
+		}
 	}
 
 	public int getCapacidadMaxAsistentes() {
 		return capacidadMaxAsistentes;
 	}
 
-	public void setCapacidadMaxAsistentes(int capacidadMaxAsistentes) {
-		this.capacidadMaxAsistentes = capacidadMaxAsistentes;
+	public void setCapacidadMaxAsistentes(int capacidadMaxAsistentes) throws CrafterException {
+		if (verificaDatos(capacidadMaxAsistentes, capacidadMaxAsistentes)) {
+			this.capacidadMaxAsistentes = capacidadMaxAsistentes;
+		}
+		
 	}
 
 	public Estado getEstado() {

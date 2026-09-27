@@ -21,9 +21,9 @@ public class GestionaPeticionesAChat {
         System.out.println("Valoración Media para IA: " + servicio.getValoracionMediaParaBots());
         System.out.println("Valoración Media para Humanos: " + servicio.getValoracionMediaParaHumanos());
 
-        Conversacion c = servicio.getRecuperaConversacion(TipoAgente.IA, "¿Cómo se restablece la contraseña?", hoy);
-        if (c != null) {
-            System.out.println("Conversación recuperada: " + c);
+        Conversacion conversacion = servicio.getRecuperaConversacion(TipoAgente.IA, "¿Cómo se restablece la contraseña?", hoy);
+        if (conversacion != null) {
+            System.out.println("Conversación recuperada: " + conversacion);
         }
 
         boolean eliminada = servicio.eliminaConversacion(hoy, TipoAgente.IA, "¿Cómo se restablece la contraseña?");

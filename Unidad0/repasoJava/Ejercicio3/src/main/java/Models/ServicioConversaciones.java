@@ -24,7 +24,7 @@ public class ServicioConversaciones {
         Conversacion conversacion = null;
         try {
             conversacion = repositorioConversaciones.getConversacion(fecha, tipo, pregunta);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
         }
         return conversacion;
     }
@@ -34,7 +34,7 @@ public class ServicioConversaciones {
         try {
             repositorioConversaciones.eliminaConversacion(fecha, tipo, pregunta);
             eliminada = true;
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
         }
         return eliminada;
     }
@@ -44,7 +44,7 @@ public class ServicioConversaciones {
         try {
             repositorioConversaciones.incrementaNumeroValoraciones(fecha, tipo, pregunta, 1.0);
             incrementado = true;
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
         }
         return incrementado;
     }
@@ -57,14 +57,14 @@ public class ServicioConversaciones {
         return calcularMediaPorTipo(TipoAgente.IA);
     }
 
-    private double calcularMediaPorTipo(TipoAgente tipo) {
+    public double calcularMediaPorTipo(TipoAgente tipo) {
         double suma = 0;
         int contador = 0;
         double media = 0.0;
 
-        for (Conversacion c : repositorioConversaciones.getTodas()) {
-            if (c.getTipoAgente() == tipo) {
-                suma += c.getNumValoracionesPositivas();
+        for (Conversacion conversacion : repositorioConversaciones.getTodas()) {
+            if (conversacion.getTipoAgente() == tipo) {
+                suma += conversacion.getNumValoracionesPositivas();
                 contador++;
             }
         }

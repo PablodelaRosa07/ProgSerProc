@@ -15,14 +15,14 @@ public class RepositorioConversaciones {
     }
 
     public void agregaConversacion(TipoAgente tipo, String pregunta, String respuesta) {
-        Conversacion nueva = new Conversacion(respuesta, tipo, pregunta, respuesta, null, 0);
+        Conversacion nueva = new Conversacion(respuesta, tipo, pregunta, respuesta, LocalDate.now(), 0);
         this.conversaciones.add(nueva);
     }
 
     public Conversacion getConversacion(LocalDate fecha, TipoAgente tipo, String pregunta) throws NoSuchElementException {
-        for (Conversacion c : conversaciones) {
-            if (c.getFechaConversacion().equals(fecha) && c.getTipoAgente() == tipo && c.getPregunta().equalsIgnoreCase(pregunta)) {
-                return c;
+        for (Conversacion conversacion : conversaciones) {
+            if (conversacion.getFechaConversacion().equals(fecha) && conversacion.getTipoAgente() == tipo && conversacion.getPregunta().equals(pregunta)) {
+                return conversacion;
             }
         }
         throw new NoSuchElementException("No existe ninguna conversación para los datos especificados.");
@@ -33,13 +33,13 @@ public class RepositorioConversaciones {
     }
 
     public void eliminaConversacion(LocalDate fecha, TipoAgente tipo, String pregunta) throws NoSuchElementException {
-        Conversacion aEliminar = getConversacion(fecha, tipo, pregunta);
-        conversaciones.remove(aEliminar);
+        Conversacion eliminar = getConversacion(fecha, tipo, pregunta);
+        conversaciones.remove(eliminar);
     }
 
     public void incrementaNumeroValoraciones(LocalDate fecha, TipoAgente tipo, String pregunta, double valoracion) throws NoSuchElementException {
-        Conversacion c = getConversacion(fecha, tipo, pregunta);
-        c.incrementarValoracion();
+        Conversacion conversacion = getConversacion(fecha, tipo, pregunta);
+        conversacion.incrementarValoracion();
     }
 
     public List<Conversacion> getTodas() {

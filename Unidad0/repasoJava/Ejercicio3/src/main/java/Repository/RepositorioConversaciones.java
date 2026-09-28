@@ -19,25 +19,25 @@ public class RepositorioConversaciones {
         this.conversaciones.add(nueva);
     }
 
-    public Conversacion getConversacion(LocalDate fecha, TipoAgente tipo, String pregunta) throws NoSuchElementException {
+    public Conversacion getConversacion(LocalDate fecha, TipoAgente tipo, String pregunta) throws Exception {
         for (Conversacion conversacion : conversaciones) {
             if (conversacion.getFechaConversacion().equals(fecha) && conversacion.getTipoAgente() == tipo && conversacion.getPregunta().equals(pregunta)) {
                 return conversacion;
             }
         }
-        throw new NoSuchElementException("No existe ninguna conversación para los datos especificados.");
+        throw new Exception("No existe ninguna conversación para los datos especificados.");
     }
 
     public boolean contieneConversacion(Conversacion conversacion) {
         return conversaciones.contains(conversacion);
     }
 
-    public void eliminaConversacion(LocalDate fecha, TipoAgente tipo, String pregunta) throws NoSuchElementException {
+    public void eliminaConversacion(LocalDate fecha, TipoAgente tipo, String pregunta) throws Exception {
         Conversacion eliminar = getConversacion(fecha, tipo, pregunta);
         conversaciones.remove(eliminar);
     }
 
-    public void incrementaNumeroValoraciones(LocalDate fecha, TipoAgente tipo, String pregunta, double valoracion) throws NoSuchElementException {
+    public void incrementaNumeroValoraciones(LocalDate fecha, TipoAgente tipo, String pregunta, double valoracion) throws Exception {
         Conversacion conversacion = getConversacion(fecha, tipo, pregunta);
         conversacion.incrementarValoracion();
     }

@@ -1,0 +1,12 @@
+2026-10-05 18:19:09.723 [main] INFO  Todo.GestionDirectorioArchivos - El directorio 'miDirectorio' ya existía.
+2026-10-05 18:19:09.726 [main] INFO  Todo.GestionDirectorioArchivos - Fichero 'lectura.txt' creado correctamente.
+2026-10-05 18:19:09.727 [main] INFO  Todo.GestionDirectorioArchivos - Fichero 'normal.txt' creado correctamente.
+2026-10-05 18:19:09.727 [main] INFO  Todo.GestionDirectorioArchivos - Fichero 'lectura.txt' marcado como solo lectura.
+2026-10-05 18:19:09.728 [main] INFO  Todo.GestionDirectorioArchivos - Permisos de los ficheros
+2026-10-05 18:19:09.728 [main] INFO  Todo.GestionDirectorioArchivos - Fichero: lectura.txt | Lectura: true | Escritura: false | Ejecución: true
+2026-10-05 18:19:09.729 [main] INFO  Todo.GestionDirectorioArchivos - Fichero: normal.txt | Lectura: true | Escritura: true | Ejecución: true
+2026-10-05 18:19:09.730 [main] ERROR Todo.GestionDirectorioArchivos - No se pudo renombrar 'normal.txt'.
+2026-10-05 18:19:09.731 [main] INFO  Todo.GestionDirectorioArchivos - Fichero 'lectura.txt' eliminado directamente.
+2026-10-05 18:19:09.731 [main] INFO  Todo.GestionDirectorioArchivos - Contenido final de miDirectorio
+2026-10-05 18:19:09.732 [main] INFO  Todo.GestionDirectorioArchivos - Fichero: C:\Users\prosg\miDirectorio\normal.txt
+2026-10-05 18:19:09.732 [main] INFO  Todo.GestionDirectorioArchivos - Fichero: C:\Users\prosg\miDirectorio\renombrado.txt

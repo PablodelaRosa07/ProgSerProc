@@ -3,6 +3,7 @@ package Todo;
 import java.io.File;
 
 
+
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +19,8 @@ public class CalculadorTamanoDirectorio {
 	public static void main(String[] args) {
 	    CalculadorTamanoDirectorio calculador = new CalculadorTamanoDirectorio();
 	    
-	    String ruta = calculador.introducirRuta();
-	    File archivo = new File(ruta);
+	    File ruta = calculador.introducirRuta();
+
 	    
 	    double bytesTotales = calculador.calcularTamano(ruta);
 	    calculador.formatearTamano(bytesTotales);
@@ -29,7 +30,7 @@ public class CalculadorTamanoDirectorio {
 	
 	
 	
-	public String introducirRuta() {
+	public File introducirRuta() {
 		Scanner sc = new Scanner(System.in);
 		logger.info("Introduce la ruta: ");
 		String archivo = sc.next();
@@ -41,22 +42,21 @@ public class CalculadorTamanoDirectorio {
 		else {
 			logger.info("No existe la ruta.");
 		}
-		return archivo;
+		return directorio;
 	}
 	
 	
-	public double calcularTamano(String directorio) {
+	public double calcularTamano(File directorio) {
         double totalBytes = 0;
-        File archivo = new File(directorio);
 
-        File[] ficheros = archivo.listFiles();
+        File[] ficheros = directorio.listFiles();
         if (ficheros != null) {
             for (File fichero : ficheros) {
                 if (fichero.isFile()) {
                     totalBytes += fichero.length();
                 } 
                 else if (fichero.isDirectory()) {
-                    totalBytes += calcularTamano(fichero.toString()); 
+                    totalBytes += calcularTamano(fichero); 
                 }
             }
         }

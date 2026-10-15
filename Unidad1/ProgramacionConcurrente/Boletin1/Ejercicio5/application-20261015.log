@@ -13,3 +13,6 @@
 2026-10-15 09:26:16.034 [main] INFO  Todo.CalculadorTamanoDirectorio - Introduce la ruta: 
 2026-10-15 09:26:32.694 [main] INFO  Todo.CalculadorTamanoDirectorio - Entrando en la ruta.
 2026-10-15 09:26:32.729 [main] INFO  Todo.CalculadorTamanoDirectorio - MB: 0.1644573211669922 | KB: 168.404296875 | B: 172446.0
+2026-10-15 12:48:10.299 [main] INFO  Todo.CalculadorTamanoDirectorio - Introduce la ruta: 
+2026-10-15 12:48:49.221 [main] INFO  Todo.CalculadorTamanoDirectorio - Entrando en la ruta.
+2026-10-15 12:48:49.284 [main] INFO  Todo.CalculadorTamanoDirectorio - MB: 0.17131328582763672 | KB: 175.4248046875 | B: 179635.0

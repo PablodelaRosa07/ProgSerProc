@@ -7,16 +7,16 @@ import java.util.List;
 public class LanzadorContadoresPalabras {
 
     public static void main(String[] args) {
-        if (args.length >= 1) {
-            String ficheroEntrada = args[0];
+
+            String ficheroEntrada = "src/main/resources/Fichero.txt";
             compila();
             ejecuta(ficheroEntrada);
-        }
+        
     }
 
     public static void compila() {
         try {
-            ProcessBuilder pb = new ProcessBuilder("javac", "ProcesadorFichero.java");
+            ProcessBuilder pb = new ProcessBuilder("javac", "Ejercicio1.ProcesadorFichero.java");
             pb.inheritIO();
             Process proceso = pb.start();
             
@@ -37,13 +37,13 @@ public class LanzadorContadoresPalabras {
         for (String palabra : palabras) {
             String ficheroResultado = palabra + ".txt";
             try {
-                ProcessBuilder pb = new ProcessBuilder("java", "Ejercicio1.ProcesadorFichero", ficheroEntrada, palabra, ficheroResultado);
+                ProcessBuilder pb = new ProcessBuilder("java", "Ejercicio1.ProcesadorFichero", ficheroEntrada, palabra);
                 pb.inheritIO();
                 
                 Process proceso = pb.start();
                 listaProcesos.add(proceso);
                 
-                System.out.println(" -> Proceso lanzado para: '" + palabra + "' (Guardando en " + ficheroResultado + ")");
+                System.out.println("Proceso lanzado para: '" + palabra + "' (Guardando en " + ficheroResultado + ")");
             } catch (IOException e) {
             }
         }

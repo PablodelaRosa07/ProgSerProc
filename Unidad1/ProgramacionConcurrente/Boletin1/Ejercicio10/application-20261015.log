@@ -1,6 +1,0 @@
-2026-10-15 13:20:26.243 [main] INFO  OrganizadorDescargas - El directorio está vacío o no contiene ficheros para organizar.
-2026-10-15 13:20:26.246 [main] INFO  OrganizadorDescargas - Organizando 0 ficheros...
-2026-10-15 13:20:26.246 [main] INFO  OrganizadorDescargas - ¡Organización completada!
-2026-10-15 13:20:47.267 [main] INFO  OrganizadorDescargas - Organizando 1 ficheros...
-2026-10-15 13:20:47.270 [main] INFO  OrganizadorDescargas - Movido: .project -> sin_extension/.project
-2026-10-15 13:20:47.270 [main] INFO  OrganizadorDescargas - ¡Organización completada!

@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -31,11 +33,11 @@ public class GeneraNSSFichero {
         int contadorNSS = 0;
         int contadorTotal = 0;
         Scanner sc = null;
-        BufferedWriter ficheroResultado = null;
-        
+        BufferedWriter bw = null;
+       
         try {
             sc = new Scanner(new File(nombreFichero));
-            ficheroResultado = new BufferedWriter(new FileWriter("NSSs.txt"));
+            bw = new BufferedWriter(new FileWriter("NSSs.txt"));
             
             while (sc.hasNextLine()) {
                 String nssLeido = sc.nextLine();
@@ -43,20 +45,20 @@ public class GeneraNSSFichero {
                 
                 if (nssLeido.startsWith("AN")) {
                     contadorNSS++; // Cuenta solo las que empiezan por AN
-                    ficheroResultado.write(nssLeido);
-                    ficheroResultado.newLine();
+                    bw.write(nssLeido);
+                    bw.newLine();
                 } 
             }
         } finally {
+            // Cerramos los recursos de forma segura en el finally
             if (sc != null) {
                 sc.close();
             }
-            if (ficheroResultado != null) {
-                ficheroResultado.close();
+            if (bw != null) {
+                bw.close();
             }
         }
         
-        // Devolvemos ambos contadores empaquetados en un array
         return new int[] { contadorNSS, contadorTotal };
     }
 }

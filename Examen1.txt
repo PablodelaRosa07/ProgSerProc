@@ -24,6 +24,20 @@ El código nuevo: Se añadió una validación con un if-else en el main para com
 
 
 
+5. FileWriter escribe carácter a carácter, BufferedWriter escribe línea a línea.
+
+
+
+6. En Java, cualquier recurso declarado dentro de los paréntesis de un try-with-resources se cierra automáticamente de forma implícita al salir del bloque.
+
+
+
+7. En Java, cuando abres un FileWriter sobre un fichero existente sin indicar que es modo anexar (true), el sistema operativo vacía y borra el contenido del fichero por completo nada más abrirlo. Al hacer esto en la misma línea en la que intentas leerlo con el FileReader, corres el riesgo de corromper o vaciar el archivo antes de procesarlo.
+
+El FileReader sobraba por completo, porque tú ya estás leyendo los datos del archivo de entrada original mediante el Scanner (nombreFichero), y lo único que necesitas escribir es el resultado en NSSs.txt con el BufferedWriter.
+
+
+
 
 
 

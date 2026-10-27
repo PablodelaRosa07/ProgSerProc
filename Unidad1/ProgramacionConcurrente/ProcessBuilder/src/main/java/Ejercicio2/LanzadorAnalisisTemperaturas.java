@@ -56,24 +56,21 @@ public class LanzadorAnalisisTemperaturas {
             }
         }
 
-        // 2. Esperamos a que terminen y gestionamos si han tenido éxito o error
         boolean hayErrores = false;
         for (int i = 0; i < listaProcesos.size(); i++) {
             Process proceso = listaProcesos.get(i);
             int numero = umbrales[i];
             try {
-                int exitCode = proceso.waitFor(); // Esperamos a que finalice el hijo
+                int exitCode = proceso.waitFor(); 
                 
                 if (exitCode != 0) {
                     hayErrores = true;
-                    // El hijo falló: leemos la excepción de su flujo de errores (getErrorStream)
                     Scanner scError = new Scanner(proceso.getErrorStream());
                     while (scError.hasNextLine()) {
                         System.err.println("[PADRE] Excepción propagada del hijo (umbral " + numero + "): " + scError.nextLine());
                     }
                     scError.close();
                 } else {
-                    // El hijo tuvo éxito: leemos su resultado numérico normal
                     Scanner scHijo = new Scanner(proceso.getInputStream());
                     if (scHijo.hasNextInt()) {
                         conteos[i] = scHijo.nextInt();
@@ -85,7 +82,6 @@ public class LanzadorAnalisisTemperaturas {
             }
         }
 
-        // 3. Si todo fue bien, mostramos los resultados sumados
         if (!hayErrores) {
             System.out.println("Resultados obtenidos de los subprocesos:");
             for (int i = 0; i < umbrales.length; i++) {

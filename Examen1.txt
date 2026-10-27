@@ -1,0 +1,31 @@
+Cosas a tener en cuenta en el examen:
+
+1. No hacer las cosas estáticas, crear objetos de clase.
+
+
+
+2. La lectura del fichero (Scanner)
+Tu código anterior: Hacias new Scanner(nombreFichero). Al pasarle un String directamente, Java interpretaba ese texto ("datos.txt") como el contenido literal que debía leer el escáner, no como la ruta de un archivo en el disco. Por eso no encontraba nada.
+El código nuevo: Se utiliza new Scanner(new File(nombreFichero)). Al envolver el nombre en un objeto File, Java le indica al Scanner que debe buscar y abrir el archivo físico real en tu ordenador.
+
+
+
+3. El salto de línea al escribir
+Tu código anterior: Hacías ficheroResultado.write(nssLeido); sin añadir ningún salto de línea. Si el filtro encontraba varios NSS seguidos, los escribiría todos pegados en una misma línea kilométrica (AN3456789012AN7654321098...).
+
+El código nuevo: Se añadió ficheroResultado.newLine(); justo después de escribir cada coincidencia. Esto garantiza que cada número de la seguridad social quede ordenado en su propia línea dentro de NSSs.txt.
+
+
+
+4. Control de argumentos y flujo (return)
+Tu código anterior: No validabas si el usuario introducía argumentos al ejecutar el programa (lo que lanzaría un ArrayIndexOutOfBoundsException si args[0] no existía).
+
+El código nuevo: Se añadió una validación con un if-else en el main para comprobar que args.length > 0 antes de intentar leer el array, evitando salidas anticipadas con return tal como me pediste.
+
+
+
+
+
+
+
+

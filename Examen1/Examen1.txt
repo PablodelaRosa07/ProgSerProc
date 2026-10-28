@@ -1,0 +1,179 @@
+Cosas a tener en cuenta en el examen:
+
+1. No hacer las cosas estáticas, crear objetos de clase.
+
+
+
+2. La lectura del fichero (Scanner)
+Tu código anterior: Hacias new Scanner(nombreFichero). Al pasarle un String directamente, Java interpretaba ese texto ("datos.txt") como el contenido literal que debía leer el escáner, no como la ruta de un archivo en el disco. Por eso no encontraba nada.
+El código nuevo: Se utiliza new Scanner(new File(nombreFichero)). Al envolver el nombre en un objeto File, Java le indica al Scanner que debe buscar y abrir el archivo físico real en tu ordenador.
+
+
+
+3. El salto de línea al escribir
+Tu código anterior: Hacías ficheroResultado.write(nssLeido); sin añadir ningún salto de línea. Si el filtro encontraba varios NSS seguidos, los escribiría todos pegados en una misma línea kilométrica (AN3456789012AN7654321098...).
+
+El código nuevo: Se añadió ficheroResultado.newLine(); justo después de escribir cada coincidencia. Esto garantiza que cada número de la seguridad social quede ordenado en su propia línea dentro de NSSs.txt.
+
+
+
+4. Control de argumentos y flujo (return)
+Tu código anterior: No validabas si el usuario introducía argumentos al ejecutar el programa (lo que lanzaría un ArrayIndexOutOfBoundsException si args[0] no existía).
+
+El código nuevo: Se añadió una validación con un if-else en el main para comprobar que args.length > 0 antes de intentar leer el array, evitando salidas anticipadas con return tal como me pediste.
+
+
+
+5. FileWriter escribe carácter a carácter, BufferedWriter escribe línea a línea.
+
+
+
+6. En Java, cualquier recurso declarado dentro de los paréntesis de un try-with-resources se cierra automáticamente de forma implícita al salir del bloque.
+
+
+
+7. En Java, cuando abres un FileWriter sobre un fichero existente sin indicar que es modo anexar (true), el sistema operativo vacía y borra el contenido del fichero por completo nada más abrirlo. Al hacer esto en la misma línea en la que intentas leerlo con el FileReader, corres el riesgo de corromper o vaciar el archivo antes de procesarlo.
+
+El FileReader sobraba por completo, porque tú ya estás leyendo los datos del archivo de entrada original mediante el Scanner (nombreFichero), y lo único que necesitas escribir es el resultado en NSSs.txt con el BufferedWriter.
+
+
+
+8. Los métodos p.getInputStream() (para leer la salida del Hijo desde el padre) y p.getErrorStream() (para leer los errores ocurridos en el Hijo desde el padre) 
+→ Devuelven InputStream.
+En ambos casos, este InputStream tengo que pasarlo a BufferedReader:
+BufferedReader reader= 
+new BufferedReader(new InputStreamReader(hijo.getInputStream()));
+ BufferedReader stdError = 
+new BufferedReader(new InputStreamReader(hijo.getErrorStream()));
+La lectura de la clase BufferedReader es similar a la que hemos visto para ficheros:
+           String linea = reader.readLine();
+           while ((linea != null) {
+               System.out.println( linea);
+               linea = reader.readLine();            }
+
+Además puedo redirigir lo que devuelven estos comandos a un fichero:
+
+processBuilder.redirectOutput(new File("comandosEntrada.txt")); processBuilder.redirectError(new File("error.txt"));
+processBuilder.redirectInput(new File("salida.txt"));
+
+
+
+9. En el pom.xml:
+<dependencies>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.13.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.13.0</version>
+		</dependency>
+	</dependencies>
+
+En la carpeta resources generamos un fichero llamado log4j2.xml configuramos el nivel y los appenders:
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+   <Appenders>
+       <Console name="ConsoleAppender" target="SYSTEM_OUT">
+           <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+       </Console>
+       <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
+           <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+       </File>
+   </Appenders>
+   <Loggers>
+       <Root level="debug">
+           <AppenderRef ref="ConsoleAppender" />
+           <AppenderRef ref="FileAppender"/>
+       </Root>
+   </Loggers>
+</Configuration>
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+	private static final Logger logger = LogManager.getLogger(NOMBRE_CLASES.class);
+
+
+
+10. class SubprocesoEjecutor {
+    public InputStream iniciarProceso() {
+        try {
+            Process proceso = new ProcessBuilder("ping", "localhost").start();
+            // Retornamos el InputStream (salida estándar) del subproceso
+            return proceso.getInputStream();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+
+class ClasePadre {
+    public void consumirFlujo(InputStream inputStream) {
+        // Aquí el padre procesa el InputStream
+        try (var reader = new java.io.BufferedReader(new java.io.InputStreamReader(inputStream))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                System.out.println("Padre leyendo: " + linea);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+// Uso:
+public class Main {
+    public static void main(String[] args) {
+        SubprocesoEjecutor hija = new SubprocesoEjecutor();
+        ClasePadre padre = new ClasePadre();
+
+        InputStream streamDelProceso = hija.iniciarProceso();
+        if (streamDelProceso != null) {
+            padre.consumirFlujo(streamDelProceso);
+        }
+    }
+}
+
+
+
+11. import java.io.IOException;
+
+class EjecutorSubproceso {
+    // Declaramos que este método puede lanzar una excepción
+    public void ejecutar() throws IOException, InterruptedException {
+        Process proceso = new ProcessBuilder("comando_invalido").start();
+        
+        int codigoSalida = proceso.waitFor(); // Espera a que termine
+        
+        if (codigoSalida != 0) {
+            // Si el proceso falló a nivel de sistema operativo, lanzamos una excepción
+            throw new RuntimeException("El subproceso falló con código de salida: " + codigoSalida);
+        }
+    }
+}
+
+class ClasePadre {
+    public void iniciarProceso() {
+        EjecutorSubproceso ejecutor = new EjecutorSubproceso();
+        
+        try {
+            // El padre intenta ejecutar y captura cualquier error propagado
+            ejecutor.ejecutar();
+        } catch (Exception e) {
+            System.err.println("El padre detectó un error propagado: " + e.getMessage());
+            // Aquí puedes decidir si reintentar, registrar el log o abortar
+        }
+    }
+}
+
+
+
+
+
+
+
+

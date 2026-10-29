@@ -62,7 +62,7 @@ public class LanzadorProvincias {
                 System.out.println("Subproceso lanzado para: " + provincia);
             }
 
-            System.out.println("\nEsperando a que todos los subprocesos finalicen...\n");
+            System.out.println("Esperando a que todos los subprocesos finalicen.");
 
             // Bucle para esperar y leer los resultados de cada hijo
             for (int i = 0; i < procesos.size(); i++) {

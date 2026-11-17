@@ -1,4 +1,4 @@
-package Ejercicio8;
+package Boletin1.Ejercicio8;
 
 class HiloProcesos extends Thread {
     @Override

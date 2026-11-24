@@ -8,7 +8,7 @@ public class CajeroAutomatico {
     }
 
     public void iniciarSimulacion() {
-        System.out.println("=== INICIANDO CAJERO AUTOMÁTICO ===");
+        System.out.println("INICIANDO CAJERO AUTOMÁTICO");
         System.out.println("Saldo inicial de la cuenta: " + cuenta.getSaldo() + "€\n");
 
         // Creamos 2 hilos de ingreso y 2 de retirada (5 operaciones cada uno)
@@ -33,7 +33,7 @@ public class CajeroAutomatico {
             Thread.currentThread().interrupt();
         }
 
-        System.out.println("\n=== OPERACIONES FINALIZADAS ===");
+        System.out.println("OPERACIONES FINALIZADAS");
         System.out.println("Saldo final en la cuenta: " + cuenta.getSaldo() + "€");
     }
 

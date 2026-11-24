@@ -14,7 +14,7 @@ public class Restaurante {
         Thread hiloComensal2 = new Thread(comensal2Task, "Hilo-Comensal-2");
         Thread hiloComensal3 = new Thread(comensal3Task, "Hilo-Comensal-3");
 
-        System.out.println("=== APERTURA DEL RESTAURANTE ===");
+        System.out.println("APERTURA DEL RESTAURANTE");
         hiloCocinero.start();
         hiloComensal1.start();
         hiloComensal2.start();
@@ -30,6 +30,6 @@ public class Restaurante {
             System.out.println("[ERROR] Hilo principal interrumpido.");
         }
 
-        System.out.println("=== CIERRE DEL RESTAURANTE ===");
+        System.out.println("CIERRE DEL RESTAURANTE");
     }
 }
